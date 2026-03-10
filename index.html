@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yash Mehta — CS & Finance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #F7F4EF;
+      --ink: #1A1A18;
+      --charcoal: #2E2E2C;
+      --gold: #B8924A;
+      --gold-light: #D4A96A;
+      --muted: #7A7A72;
+      --border: #DDD9D0;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(247, 244, 239, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 4rem;
+      border-right: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--ink); margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-name span { color: var(--gold); font-style: italic; }
+    .hero-tagline {
+      font-size: 1rem; color: var(--muted);
+      max-width: 380px; margin-bottom: 2.5rem;
+      font-weight: 300; line-height: 1.8;
+    }
+    .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: 0.75rem 2rem;
+      background: var(--ink); color: var(--cream);
+      text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500; transition: background 0.25s, color 0.25s;
+    }
+    .btn-primary:hover { background: var(--gold); }
+    .btn-outline {
+      display: inline-block; padding: 0.75rem 2rem;
+      border: 1px solid var(--ink); color: var(--ink);
+      text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500; transition: all 0.25s;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+    .hero-right {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 4rem 4rem 4rem 4rem;
+      background: var(--ink); position: relative; overflow: hidden;
+    }
+    .hero-right::before {
+      content: 'YM';
+      position: absolute; top: -20px; right: -10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22rem; font-weight: 600;
+      color: rgba(255,255,255,0.03); line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; position: relative; z-index: 1;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      font-weight: 400;
+    }
+    .hero-contact-strip {
+      position: relative; z-index: 1;
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .hero-contact-strip a {
+      font-size: 0.78rem; color: rgba(255,255,255,0.45);
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .hero-contact-strip a:hover { color: var(--gold-light); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 4rem; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; font-weight: 300;
+      color: var(--border); line-height: 1;
+      user-select: none;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 400;
+      color: var(--ink); line-height: 1;
+    }
+    .section-rule {
+      flex: 1; height: 1px; background: var(--border);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+    .about-left {}
+    .about-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+    }
+    .about-text {
+      font-size: 1.05rem; color: var(--charcoal);
+      line-height: 1.85; font-weight: 300;
+    }
+    .about-text p + p { margin-top: 1rem; }
+    .about-right {}
+    .info-block { margin-bottom: 2.5rem; }
+    .info-block h4 {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); font-weight: 500; margin-bottom: 0.8rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 0.55rem 0; border-bottom: 1px solid rgba(221,217,208,0.5);
+      font-size: 0.88rem;
+    }
+    .info-row span:first-child { color: var(--muted); }
+    .info-row span:last-child { color: var(--ink); font-weight: 500; }
+
+    /* ── EXPERIENCE ── */
+    #experience { border-top: 1px solid var(--border); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 2rem; padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-date {
+      font-size: 0.78rem; color: var(--muted);
+      letter-spacing: 0.05em; padding-top: 0.2rem;
+      font-weight: 400;
+    }
+    .exp-content {}
+    .exp-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 500;
+      color: var(--ink); margin-bottom: 0.2rem;
+    }
+    .exp-company {
+      font-size: 0.82rem; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      font-weight: 500; margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 0.88rem; color: var(--charcoal);
+      padding: 0.3rem 0 0.3rem 1rem;
+      position: relative; font-weight: 300; line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '–'; position: absolute; left: 0;
+      color: var(--gold);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--ink); border-top: 1px solid var(--border); }
+    #projects .section-number { color: rgba(255,255,255,0.06); }
+    #projects .section-title { color: var(--cream); }
+    #projects .section-rule { background: rgba(255,255,255,0.1); }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px; background: rgba(255,255,255,0.08);
+    }
+    .project-card {
+      background: var(--ink);
+      padding: 2.5rem; display: flex; flex-direction: column;
+      transition: background 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .project-card:hover { background: #232320; }
+    .project-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--gold);
+      transition: width 0.35s ease;
+    }
+    .project-card:hover::after { width: 100%; }
+    .project-tag {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1.2rem;
+    }
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      color: var(--cream); margin-bottom: 0.8rem; line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 0.84rem; color: rgba(255,255,255,0.4);
+      line-height: 1.7; font-weight: 300; flex: 1;
+      margin-bottom: 1.8rem;
+    }
+    .project-stack {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .stack-tag {
+      font-size: 0.68rem; padding: 0.25rem 0.6rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em; font-weight: 400;
+    }
+    .project-links { display: flex; gap: 1rem; }
+    .project-link {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); text-decoration: none;
+      font-weight: 500; transition: color 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .project-link:hover { color: var(--gold-light); }
+    .project-link::after { content: '↗'; font-size: 0.8rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--white); border-top: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); }
+    .skill-group {
+      background: var(--white); padding: 2rem 1.8rem;
+    }
+    .skill-group h4 {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+      margin-bottom: 1.2rem; padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-list { list-style: none; }
+    .skill-list li {
+      font-size: 0.86rem; color: var(--charcoal);
+      padding: 0.32rem 0; border-bottom: 1px solid rgba(221,217,208,0.4);
+      font-weight: 300;
+    }
+    .skill-list li:last-child { border-bottom: none; }
+
+    /* ── LEADERSHIP ── */
+    #leadership { border-top: 1px solid var(--border); }
+    .leadership-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+    .leadership-card {
+      background: var(--cream); padding: 2.5rem;
+    }
+    .leadership-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--ink); margin-bottom: 0.3rem;
+    }
+    .leadership-org {
+      font-size: 0.78rem; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; margin-bottom: 0.3rem;
+    }
+    .leadership-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
+    .leadership-bullets { list-style: none; }
+    .leadership-bullets li {
+      font-size: 0.86rem; color: var(--charcoal);
+      padding: 0.28rem 0 0.28rem 1rem;
+      position: relative; font-weight: 300; line-height: 1.6;
+    }
+    .leadership-bullets li::before {
+      content: '–'; position: absolute; left: 0; color: var(--gold);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink);
+      text-align: center;
+      padding: 7rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .contact-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .contact-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 300; color: var(--cream);
+      margin-bottom: 1rem; line-height: 1.1;
+    }
+    .contact-sub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.35);
+      margin-bottom: 3rem; font-weight: 300;
+    }
+    .contact-links {
+      display: flex; justify-content: center; gap: 1.5rem;
+      flex-wrap: wrap; margin-bottom: 4rem;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6);
+      text-decoration: none; font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      border-color: var(--gold); color: var(--gold-light);
+      background: rgba(184,146,74,0.05);
+    }
+    .contact-email-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: rgba(255,255,255,0.2);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.25s;
+      display: block; margin-bottom: 3rem;
+    }
+    .contact-email-big:hover { color: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 4rem;
+      background: #111110;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer span {
+      font-size: 0.75rem; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.3rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 5rem 1.5rem 3rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-right { padding: 3rem 1.5rem; min-height: 300px; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .leadership-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 500px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Yash Mehta</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left fade-in">
+      <p class="hero-eyebrow">Computer Science &amp; Finance — Rutgers University</p>
+      <h1 class="hero-name">Yash<br><span>Mehta</span></h1>
+      <p class="hero-tagline">Building at the intersection of software and finance — full-stack developer with a passion for real-world impact.</p>
+      <div class="hero-cta-group">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">7+</div>
+          <div class="stat-label">Languages &amp; Frameworks</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10k+</div>
+          <div class="stat-label">Assets on Asset Universe</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">CV Model Accuracy</div>
+        </div>
+      </div>
+      <div class="hero-contact-strip">
+        <a href="mailto:ym604@scarletmail.rutgers.edu">ym604@scarletmail.rutgers.edu</a>
+        <a href="https://linkedin.com/in/yash-kunal-mehta-182aa4331/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/Yash-Mehtaa" target="_blank">GitHub</a>
+        <a href="tel:+18567807690">+1 (856) 780-7690</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header fade-in">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-left fade-in">
+        <p class="about-label">Who I Am</p>
+        <div class="about-text">
+          <p>I'm a Computer Science and Finance student at Rutgers University, expected to graduate in May 2028. I thrive at the crossroads of technology and business — writing code that solves real financial problems and building products that people actually use.</p>
+          <p>From automating pricing systems at a Mumbai-based import firm to deploying a live investment simulator serving global users, I bring an end-to-end engineering mindset to every project. I'm equally comfortable designing backend APIs and translating business requirements into clean, maintainable code.</p>
+          <p>Outside of tech, I lead operations for one of Rutgers' busiest facilities, manage 30+ staff, and have represented Rutgers Global as an international orientation leader.</p>
+        </div>
+      </div>
+      <div class="about-right fade-in">
+        <div class="info-block">
+          <h4>Education</h4>
+          <div class="info-row"><span>University</span><span>Rutgers University – New Brunswick</span></div>
+          <div class="info-row"><span>Degree</span><span>B.S. Computer Science &amp; Finance</span></div>
+          <div class="info-row"><span>Graduation</span><span>May 2028</span></div>
+          <div class="info-row"><span>Status</span><span>Pending Transfer</span></div>
+        </div>
+        <div class="info-block">
+          <h4>Relevant Coursework</h4>
+          <div class="info-row"><span>CS</span><span>Data Structures, Computer Architecture</span></div>
+          <div class="info-row"><span>Math</span><span>Calculus I &amp; II, Linear Algebra, Discrete Structures</span></div>
+          <div class="info-row"><span>Finance</span><span>Micro &amp; Macroeconomics, Stats for Business</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header fade-in">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item fade-in">
+        <div class="exp-date">Apr. 2025 – Present</div>
+        <div class="exp-content">
+          <div class="exp-role">Operations Manager</div>
+          <div class="exp-company">Rutgers University · New Brunswick, NJ</div>
+          <ul class="exp-bullets">
+            <li>Direct 30+ staff across two centers serving 3M+ annual visitors.</li>
+            <li>Coordinated daily operations across facilities, IT/AV, and event teams, ensuring uninterrupted service for 100+ events.</li>
+            <li>Resolved cross-functional issues swiftly to maintain service continuity at scale.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-date">May 2025 – Aug. 2025</div>
+        <div class="exp-content">
+          <div class="exp-role">Software Associate</div>
+          <div class="exp-company">Sahil Impex · Mumbai, India</div>
+          <ul class="exp-bullets">
+            <li>Built pricing module in Java/SQLite automating taxes, margins, and discounts — reduced errors by 80%.</li>
+            <li>Created analytics dashboards to track sales and purchase trends, improving reporting speed by 40%.</li>
+            <li>Reconciled invoices with the finance team, streamlining compliance for 1,000+ monthly transactions.</li>
+            <li>Used SQL queries to diagnose and resolve mismatches in pricing and sales data.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header fade-in">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-in">
+        <div class="project-tag">Full-Stack · Fintech</div>
+        <div class="project-name">Asset Universe</div>
+        <div class="project-desc">Investment education platform and simulator. Combines real-time budgeting with market simulation, integrating live data across 10,000+ stocks, ETFs, and cryptocurrencies.</div>
+        <div class="project-stack">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">JavaScript</span>
+          <span class="stack-tag">REST APIs</span>
+          <span class="stack-tag">Finnhub</span>
+          <span class="stack-tag">CoinGecko</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">Live Site</a>
+          <a href="https://github.com/Yash-Mehtaa" class="project-link" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-tag">Desktop App · Finance</div>
+        <div class="project-name">BudgetInsight</div>
+        <div class="project-desc">Full-stack personal finance desktop app that reduced manual tracking by 90%. Features an interactive dashboard with a "Should I Buy It?" AI predictor, piloted with 50+ student testers.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Java</span>
+          <span class="stack-tag">JavaFX</span>
+          <span class="stack-tag">Gradle</span>
+          <span class="stack-tag">SQLite</span>
+          <span class="stack-tag">macOS</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Yash-Mehtaa" class="project-link" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-tag">Computer Vision · ML</div>
+        <div class="project-name">Parking Occupancy Detector</div>
+        <div class="project-desc">Vision pipeline to detect cars and label parking stalls as Free or Occupied with 95% accuracy. Supports custom lot layouts via CLI with annotated visual outputs.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">YOLOv8</span>
+          <span class="stack-tag">OpenCV</span>
+          <span class="stack-tag">CLI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Yash-Mehtaa" class="project-link" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header fade-in">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <ul class="skill-list">
+          <li>Java</li>
+          <li>Python</li>
+          <li>C++</li>
+          <li>SQL</li>
+          <li>JavaScript</li>
+          <li>HTML / CSS</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks &amp; Runtime</h4>
+        <ul class="skill-list">
+          <li>React</li>
+          <li>Node.js / Express</li>
+          <li>Flask</li>
+          <li>FastAPI</li>
+          <li>JavaFX</li>
+          <li>Gradle</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Tools &amp; Platforms</h4>
+        <ul class="skill-list">
+          <li>Docker</li>
+          <li>GitHub</li>
+          <li>GCP</li>
+          <li>Vercel</li>
+          <li>SQLite</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Data &amp; ML</h4>
+        <ul class="skill-list">
+          <li>NumPy</li>
+          <li>pandas</li>
+          <li>OpenCV</li>
+          <li>YOLOv8</li>
+          <li>Alpha Vantage API</li>
+          <li>CoinGecko API</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section id="leadership">
+    <div class="section-header fade-in">
+      <span class="section-number">05</span>
+      <h2 class="section-title">Leadership</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="leadership-grid fade-in">
+      <div class="leadership-card">
+        <div class="leadership-role">International Orientation Leader</div>
+        <div class="leadership-org">Rutgers Global</div>
+        <div class="leadership-date">Jun. 2025 – Aug. 2025 · New Brunswick, NJ</div>
+        <ul class="leadership-bullets">
+          <li>Guided 150+ international students through campus transition.</li>
+          <li>Led workshops on academics, campus resources, and student life.</li>
+        </ul>
+      </div>
+      <div class="leadership-card">
+        <div class="leadership-role">Deputy Secretary General &amp; Presiding Officer</div>
+        <div class="leadership-org">GBMUN · Mumbai, India</div>
+        <div class="leadership-date">2023 – 2024</div>
+        <ul class="leadership-bullets">
+          <li>Designed and deployed conference website and software for 400+ users; streamlined registration and communications.</li>
+          <li>Directed 40+ staff and 300+ student delegates at an international Model UN conference.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="contact-eyebrow fade-in">Get In Touch</p>
+    <h2 class="contact-headline fade-in">Let's Work<br>Together.</h2>
+    <p class="contact-sub fade-in">Open to internships, collaborations, and new opportunities.</p>
+    <a href="mailto:ym604@scarletmail.rutgers.edu" class="contact-email-big fade-in">ym604@scarletmail.rutgers.edu</a>
+    <div class="contact-links fade-in">
+      <a href="mailto:ym604@scarletmail.rutgers.edu" class="contact-link">✉ Email</a>
+      <a href="https://linkedin.com/in/yash-kunal-mehta-182aa4331/" target="_blank" class="contact-link">in LinkedIn</a>
+      <a href="https://github.com/Yash-Mehtaa" target="_blank" class="contact-link">⌥ GitHub</a>
+      <a href="tel:+18567807690" class="contact-link">✆ +1 (856) 780-7690</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Yash Mehta</span>
+    <span>Rutgers University · CS &amp; Finance</span>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Hero immediate reveal
+    document.querySelectorAll('#hero .fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+    });
+  </script>
+</body>
+</html>
